@@ -1,24 +1,20 @@
-close all
-clear all
-clc
+clear
 
 L = 1;
 
-M = 25;
+N = 25;
 
-[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(M, L);
+[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(N, L);
 
-X = L/M:L/M:L;
+X = L/N : L/N : L;
 
-Y = L:-L/M:L/M;
+Y = L : -L/N : L/N;
 
 figure (1)
-hold on
-quiver(X, Y, u, v)
-title('velocity field')
+quiver(X, Y, u, v); title('Velocity field'); grid;
 
 i = 1;
-for N = 100:100:1000
+for N = 1:8
     [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(N, L);
 
     first_halo_u = first_halo(u, N);
@@ -31,7 +27,6 @@ for N = 100:100:1000
     [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, u, v,pos_x_u, pos_y_u, pos_x_v, pos_y_v);
 
     [error_convective_u] = mas_error_convection(convective_u, convective_analytic_u);
-
     [error_convective_v] = mas_error_convection(convective_v, convective_analytic_v);
 
     max_error_convective_u(1, i) = error_convective_u;
@@ -56,9 +51,9 @@ figure(2)
 hold on
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-plot(h, max_error_convective_u)
-plot(h, max_error_diff_u)
-plot(h, h.^2)
+plot(h, max_error_convective_u,'-o');
+plot(h, max_error_diff_u,'-o')
+plot(h, h.^2,'-o')
 xlabel('h')
 ylabel('error')
 title('velocity U')
@@ -70,9 +65,9 @@ figure(3)
 hold on
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-plot(h, max_error_convective_v)
-plot(h, h.^2)
-plot(h, max_error_diff_v)
+plot(h, max_error_convective_v,'-o')
+plot(h, h.^2,'-o')
+plot(h, max_error_diff_v,'-o')
 xlabel('h')
 ylabel('error')
 title('Velocity V')

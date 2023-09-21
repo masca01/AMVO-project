@@ -16,11 +16,11 @@ v = zeros(N, N);
 % pos_x_u
 for i = 1:N
     for j = 1:N
-        pos_x_u(i, j) = (L/N) * (j);
+        pos_x_u(i, j) = (L/N) * (j); %divides the domain size into determined fine mesh
     end
 end
 %pos_y_u
-pos_y_u(N, :) = (L/(N)) / 2;
+pos_y_u(N, :) = (L/N) / 2;
 for i = N-1:-1:1
     for j = 1:N
         pos_y_u(i, j) = ((L/(N)) / 2) + (L/N) * (N-i);
