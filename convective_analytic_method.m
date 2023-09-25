@@ -1,4 +1,4 @@
-function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, u, v,pos_x_u, pos_y_u, pos_x_v, pos_y_v)
+function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N,pos_x_u, pos_y_u, pos_x_v, pos_y_v)
 % computes the convective term of a given velocity field in both
 % directions, x and y --> u, v
 

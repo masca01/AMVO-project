@@ -3,5 +3,4 @@ function [error_convective, error] = mas_error_convection(convective_u, convecti
 
 error = abs(convective_u - convective_analytic_u);
 
-error_convective_aux = max(error);
-error_convective = max(error_convective_aux);
+error_convective = max(max(error));

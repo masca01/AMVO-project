@@ -2,9 +2,6 @@ function [diffusive_u, diffusive_v] = diffusive(u, v, N, L)
 
 %% diffusive term
 
-% delta_x = L/N;
-% delta_y = L/N;
-
 delta = L/N;
 
 for i=2:N+1
