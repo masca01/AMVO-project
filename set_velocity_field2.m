@@ -28,7 +28,7 @@ for i = N-1:-1:1
 end
 for i = 1:N
     for j = 1:N
-        u(i, j) = cos(2*pi*pos_x_u(i, j)) * sin(2*pi*pos_y_u(i, j)); %  modify according to velocity field
+        u(i, j) = cos(2*pi*pos_x_u(i, j)) * sin(2*pi*pos_y_u(i, j)); %  modify according to velocity field    
     end
 end
 
