@@ -1,43 +1,58 @@
-function [pos_x_u, pos_y_u] = set_velocity_field(N, L)
+function [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(N, L)
+% for a given mesh size, computes the position (x, y) of the both
+% velocities (u, v)
+
 % N --> number of cells
 % L --> domain size
 
-u = zeros(N+2, N+2);
-v = zeros(N+2, N+2); 
-
-pos_x_u = zeros(N+2, N+2);
-pos_y_u = zeros(N+2, N+2);
+% vector definition
+pos_x_u = zeros(N, N);
+pos_y_u = zeros(N, N);
+pos_y_v = zeros(N, N);
+pos_x_v = zeros(N, N);
+u = zeros(N, N);
+v = zeros(N, N);
 
 % pos_x_u
-for i = 1:N+2
-    for j = 2:N+3
-        pos_x_u(i, j) = pos_x_u(i, j-1) + L/(N+2);
+for i = 1:N
+    for j = 1:N
+        pos_x_u(i, j) = (L/N) * (j);
     end
 end
-% pos_y_u
-pos_y_u(N+2, :) = (L/(N+2)) / 2;
-for i = N+1:-1:1
-    for j = 1:N+2
-        pos_y_u(i, j) = pos_y_u(i+1, j) + L/(N+2);
+%pos_y_u
+pos_y_u(N, :) = (L/(N)) / 2;
+for i = N-1:-1:1
+    for j = 1:N
+        pos_y_u(i, j) = ((L/(N)) / 2) + (L/N) * (N-i);
+    end
+end
+for i = 1:N
+    for j = 1:N
+        u(i, j) = cos(2*pi*pos_x_u(i, j)) * sin(2*pi*pos_y_u(i, j)); %  modify according to velocity field    
+    end
+end
+
+% pos_x_v
+pos_x_v(N, :) = (L/(N)) / 2;
+for i = 1:N
+    for j = 1:N
+        pos_x_v(i, j) = ((L/(N)) / 2) + (L/N) * (j-1);
+    end
+end
+
+% pos_y_v
+for i = N:-1:1
+    for j = 1:N
+        pos_y_v(i, j) = (L/N) * (N+1-i);
+    end
+end
+
+for i = 1:N
+    for j = 1:N
+        v(i, j) = -sin(2*pi*pos_x_v(i, j)) * cos(2*pi*pos_y_v(i, j)); % modify according to velocity field
     end
 end
 
 
-% % pos_y_v
-% for i = N+1:-1:1
-%     for j = 1:N+2
-%         pos_y(i, j) = pos_y(i+1, j) + L/N;
-%     end
-% end
-% 
-% 
-% for i = 1:N+2
-%     for j = 1:N+2
-%         u(i, j) = 2*(pos_x(i, j));             % vel_x  (2 * x) 
-%         v(i, j) = 3*(pos_y(i, j));             % vel_y  (3 * y)
-%     end
-% end
 
 
-
-end
