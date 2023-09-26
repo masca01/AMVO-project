@@ -18,8 +18,7 @@ v = zeros(M, M);
 % title('velocity field')
 
 i = 1;
-%for N = 100:200:1000
-    N = 8;
+for N = 10:10:100
 
     [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(N, L);
 
@@ -58,7 +57,7 @@ i = 1;
 
     h(1, i) = L/N;
     i = i+1;
-% end
+end
 figure(2)
 hold on
 set(gca, 'XScale', 'log')
@@ -85,7 +84,7 @@ ylabel('error')
 title('Velocity V')
 legend('error conv.','h^2', 'error diff.', 'location', 'best')
 grid on
-
+% 
 
 
 % ficar set velocity field dintre del convection i diffusive  (acabar de
