@@ -6,7 +6,7 @@ delta = L/N;
 
 for i = 2:N+1
     for j = 2:N+1
-        % integral de la vivergencia du/dx
+        % integral de la divergencia du/dx
         du_dx = ((u(i, j) - u(i, j-1)) / delta)*delta^2;
         
         % integral de la divergencia dv/dy
