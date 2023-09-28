@@ -24,4 +24,3 @@ end
   
 convective_analytic_u = print_field(convective_analytic_u_aux);
 convective_analytic_v = print_field(convective_analytic_v_aux);
-
