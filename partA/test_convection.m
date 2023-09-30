@@ -12,7 +12,7 @@ quiver(X, Y, u, v)
 title('Velocity field')
 
 i = 1;
-for N = 32:8:256
+for N = 10:10:100
 
     [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L);
 
