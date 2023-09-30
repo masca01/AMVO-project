@@ -9,7 +9,7 @@ du_dy = zeros(N);
 delta = L/N;
 for i = 2:N+1
     for j = 2:N+1
-        du_dx(i-1, j-1) = (u(i, j+1) - u(i, j)) / delta
+        du_dx(i-1, j-1) = (u(i, j+1) - u(i, j)) / delta;
         du_dy(i-1, j-1) = (u(i-1, j) - u(i, j)) / delta;
     end
 end

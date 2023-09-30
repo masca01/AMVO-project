@@ -29,6 +29,7 @@ v  =[0 0 0 0 0 0 0;
 u_halo = halo_update(first_halo(u,N));
 v_halo = halo_update(first_halo(v,N));
 
+
 % calcul de la divergencia de la velocitat
 d = diverg(u_halo, v_halo, N, L);
 
