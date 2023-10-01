@@ -1,3 +1,4 @@
+
 function b = field2vector(d)
 N = size(d, 1);
 k = 1;
@@ -9,6 +10,5 @@ for i = N:-1:1
 end
 
 b = transpose(b);
-
 
 

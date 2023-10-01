@@ -1,7 +1,10 @@
 function A = A_matrix(N)
 
+%Inicialitzem la matriu A, te tamany N^2 * N^2
 A = zeros(N^2, N^2);
 k = 1;
+
+%Creem una matriu auxiliar amb el numero de cada node
 for i = N:-1:1
     for j = 1:N
         matrix_aux(i, j) = k;
@@ -9,7 +12,6 @@ for i = N:-1:1
     end
 end
 
-matrix_aux = first_halo(matrix_aux, N);
 matrix_aux = halo_update(matrix_aux);
 
 for i = 2:N+1
@@ -29,6 +31,7 @@ for i = 2:N+1
     end
 end
 
+% omplim la diagonal amb -4
 for i = 1:N^2
     for j = 1:N^2
         if i == j

@@ -8,5 +8,4 @@ for i = N:-1:1
     end
 end
 
-p_poisson_matrix = first_halo(p_poisson_matrix_aux, N);
-p_poisson_matrix = halo_update(p_poisson_matrix);
+p_poisson_matrix = halo_update(p_poisson_matrix_aux);
