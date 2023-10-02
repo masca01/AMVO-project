@@ -5,7 +5,13 @@ clc
 %% visualització del camp de velicitats
 L = 1;
 M = 32;
-[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(M, L);
+
+syms x y
+
+u_syms = cos(2*pi*x) * sin(2*pi*y);
+v_syms =  - sin(2*pi*x) * cos(2*pi*y);
+
+[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(M, L, u_syms, v_syms, x, y);
 X = linspace(0, L, M);
 Y = linspace(L, 0, M);
 figure (1)
@@ -17,7 +23,7 @@ title('velocity field')
 i = 1;
 for N = 100:100:1000
 
-     [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L);
+     [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
      halo_print_u = halo_update(u);
      halo_print_v = halo_update(v);
      
@@ -25,7 +31,7 @@ for N = 100:100:1000
     
     %calculem els termes convectius, tants els numerics com els analitics
     [convective_u, convective_v] = convective_term(halo_print_u, halo_print_v, N, L);
-    [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, L);
+    [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, L, u_syms, v_syms, x, y);
     
     %calculem l'error entre analitic i numeric i ho guardem a un vector
     max_error_convective_u(1, i) = error_calc(convective_u, convective_analytic_u);
@@ -34,7 +40,7 @@ for N = 100:100:1000
     %% DIFFUSIVE
     %calculem els termes convectius, tants els numerics com els analitics
     [diffusive_u, diffusive_v] = diffusive(halo_print_u, halo_print_v, N, L);
-    [diffusive_analytic_u, diffusive_analytic_v] = diffusive_analytic_method(N, pos_x_u, pos_y_u, pos_x_v, pos_y_v);
+    [diffusive_analytic_u, diffusive_analytic_v] = diffusive_analytic_method(N, pos_x_u, pos_y_u, pos_x_v, pos_y_v, u_syms, v_syms, x, y);
     
     %calculem l'error entre analitic i numeric i ho guardem a un vector
     max_error_diff_u(1, i) = error_calc(diffusive_u, diffusive_analytic_u);
