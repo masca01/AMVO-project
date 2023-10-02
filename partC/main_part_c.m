@@ -6,11 +6,16 @@ L=1;
 numSteps = 1;
 s = ( L / N )^2;
 
+syms x y
+
+u_syms = cos(2*pi*x) * sin(2*pi*y);
+v_syms =  - sin(2*pi*x) * cos(2*pi*y);
+
 u_print = zeros(1, numSteps);
 v_print = zeros(1, numSteps);
 
 % evaluate time step for stability
-[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field (N, L);
+[pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
 
 [pos_x_p, pos_y_p, p] = set_pressure_field (N, L, 0);
 
