@@ -1,10 +1,12 @@
 %% main part C
 clear
+close all
+clc
 warning('off');
 
-N=7;
+N=10;
 L=1;
-numSteps = 100;
+numSteps = 50;
 s = ( L / N )^2;
 time = zeros(1,numSteps);
 

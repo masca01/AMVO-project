@@ -10,7 +10,8 @@ maxim_vel = max (max_u, max_v);
 delta_c = delta / maxim_vel;
 
 viscosity = (N/L) / 100; %viscosity (Reynolds number should be around 100)
-delta_d = 0.5 * delta^2 / viscosity;
+viscosity =100;
+delta_d = 0.5 * (delta^2 / viscosity);
 
 delta_t = f * min(delta_c, delta_d);
 end
