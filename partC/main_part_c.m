@@ -4,8 +4,9 @@ warning('off');
 
 N=7;
 L=1;
-numSteps = 10;
+numSteps = 100;
 s = ( L / N )^2;
+time = zeros(1,numSteps);
 
 syms x y
 
@@ -18,7 +19,7 @@ v_print = zeros(1, numSteps);
 % evaluate time step for stability
 [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
 
-time = eval_time_step (N, L, u, v);
+time(1) = eval_time_step (N, L, u, v);
 
 [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
 
@@ -26,32 +27,20 @@ Ru = ((-conv_u / s) + (diff_u / s));
 
 Rv = ((-conv_v / s) + (diff_v / s));
 
-up = u + time * (Ru);
-vp = v + time * (Rv);
+up = u + time(1) * (Ru);
+vp = v + time(1) * (Rv);
 
 result_div_up = diverg(halo_update(up), halo_update(vp), N, L); %shouldnt be 0
 
 [result_div, u_n1, v_n1] = partB(N,L,up,vp); %should be 0
 
-%[pos_x_p, pos_y_p, p] = set_pressure_field (N, L, 0);
+u_print(1) = u_n1(3,3);
+v_print(1) = v_n1(3,3);
 
-%[dp_dx, dp_dy] = gradient_matrix(halo_update(p), N, L);
-% up = u;
-% vp = v;
-%
 un = u;
 vn = v;
-%
-% un_new = up - dp_dx;
-% vn_new = vp - dp_dy;
-%
-%time = zeros(1, numSteps);
-% timePrint = zeros(1, numSteps);
-%
-for i = 1:numSteps
 
-    % u_n = u_n1;
-    % v_n = v_n1;
+for i = 2:numSteps
 
     time(i) = eval_time_step (N, L, u_n1, v_n1);
 
@@ -80,9 +69,16 @@ for i = 1:numSteps
 
     [result_div, u_n1, v_n1] = partB(N,L,up,vp); %should be 0
 
-    % u_print(i) = u_n1(3,3);
-    % v_print(i) = v_n1(3,3);
-    % timePrint(i+1) = timePrint(i) + time(i);
+    u_print(i) = u_n1(3,3);
+    v_print(i) = v_n1(3,3);
 end
 
+timePrint = cumsum(time);
+plot(timePrint,u_print,timePrint,v_print);
+xlabel('Time, t / s')
+ylabel('Velocity, v / (ms^-1)')
+title('Velocity over time')
+legend('u velocity','v velocity', 'location','best')
+grid on
+grid minor
 
