@@ -1,6 +1,4 @@
-function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(L, N)
-
-% [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field2(N, L);
+function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, L)
 
 xu = linspace(L/N, L, N);
 yu = linspace(L/(2*N), L-L/(2*N), N);
@@ -26,4 +24,3 @@ end
   
 convective_analytic_u = print_field(convective_analytic_u_aux);
 convective_analytic_v = print_field(convective_analytic_v_aux);
-

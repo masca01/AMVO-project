@@ -1,35 +1,25 @@
-function [halo_print] = halo_update(u)
-% for a given mesh (u), makes the halo update
-    % row M-1 goes to row 1
-    % row 2 goes to row M
-    % column M-1 goes to column 1
-    % column 2 goes to column M
+function halo_print = halo_update(u)
+    % Agafem el tamany de la matriu u
+    M= size(u, 1);
 
-% vector definition
-M = size(u, 1);
-halo_print = u;
+    % Inicialitzem la matriu halo print amb 0
+    halo_print = zeros(M + 2, M + 2);
 
-for i = 1:M
-    if i == 1
-        for j = 1:M
-            halo_print(i, j) = u(M-1, j);
-        end
-    elseif i == M
-        for j = 1:M
-            halo_print(i, j) = u(2, j);
+    % Copiem els valors interiors de u a halo print
+    for i = 2:M+1
+        for j = 2:M+1
+            halo_print(i, j) = u(i - 1, j - 1);
         end
     end
-end
 
-for j = 1:M
-    if j == 1
-        for i = 1:M
-            halo_print(i, j) = u(i, M-1);
-        end
-    elseif j == M
-        for i = 1:M
-            halo_print(i, j) = u(i, 2);
-        end
+    % Copy values to form the halo
+    for j = 1:M
+        halo_print(1, j + 1) = halo_print(M + 1, j + 1);   % Copiem la penultima fila a la primera
+        halo_print(M + 2, j + 1) = halo_print(2, j + 1);   % Copeim la segona fila a l'ultima
+    end
+
+    for i = 1:M
+        halo_print(i + 1, 1) = halo_print(i + 1, M + 1);   % Copiem la penultima columna a la primera
+        halo_print(i + 1, M + 2) = halo_print(i + 1, 2);   % Copeim la segona columna a l'ultima
     end
 end
-
