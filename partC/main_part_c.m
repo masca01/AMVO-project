@@ -3,10 +3,9 @@ clear
 
 N=7;
 L=1;
-numSteps = 100;
+numSteps = 1;
 s = ( L / N )^2;
 
-time = zeros(1, numSteps);
 u_print = zeros(1, numSteps);
 v_print = zeros(1, numSteps);
 
@@ -14,6 +13,7 @@ v_print = zeros(1, numSteps);
 [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field (N, L);
 
 [pos_x_p, pos_y_p, p] = set_pressure_field (N, L, 0);
+
 [dp_dx, dp_dy] = gradient_matrix(halo_update(p), N, L);
 up = u;
 vp = v;
@@ -23,6 +23,9 @@ vn = v;
 
 un_new = up - dp_dx;
 vn_new = vp - dp_dy;
+
+time = zeros(1, numSteps);
+timePrint = zeros(1, numSteps);
 
 for i = 1:numSteps
 
@@ -57,6 +60,7 @@ for i = 1:numSteps
 
     u_print(i) = un_new(3,3);
     v_print(i) = vn_new(3,3);
+    timePrint(i+1) = timePrint(i) + time(i);
 end
 
 
