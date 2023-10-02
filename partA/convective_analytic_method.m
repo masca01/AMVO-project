@@ -1,14 +1,10 @@
-function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, L)
+function [convective_analytic_u, convective_analytic_v] = convective_analytic_method(N, L, u_an, v_an, x, y)
 
 xu = linspace(L/N, L, N);
 yu = linspace(L/(2*N), L-L/(2*N), N);
 
 xv = linspace(L/(2*N), L-L/(2*N), N);
 yv = linspace(L/N, L, N);
-
-syms x y u_an v_an
-u_an = cos(2*pi*x) * sin(2*pi*y);
-v_an = - sin(2*pi*x) * cos(2*pi*y);
 
 convective_u = u_an * diff(u_an, x) + v_an * diff(u_an, y);
 convective_v = u_an * diff(v_an, x) + v_an * diff(v_an, y);

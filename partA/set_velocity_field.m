@@ -1,4 +1,4 @@
-function [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L)
+function [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L, u_an, v_an, x, y)
 % for a given mesh size, computes the position (x, y) of the both
 % velocities (u, v)
 
@@ -26,9 +26,11 @@ for i = N-1:-1:1
         pos_y_u(i, j) = ((L/(N)) / 2) + (L/N) * (N-i);
     end
 end
+
+u_field = matlabFunction(u_an, 'Vars', [x y]);
 for i = 1:N
     for j = 1:N
-        u(i, j) = cos(2*pi*pos_x_u(i, j)) * sin(2*pi*pos_y_u(i, j)); %  modify according to velocity field    
+        u(i, j) = u_field(pos_x_u(i,j),pos_y_u(i,j)); %  modify according to velocity field
     end
 end
 
@@ -47,9 +49,10 @@ for i = N:-1:1
     end
 end
 
+v_field = matlabFunction(v_an, 'Vars', [x y]);
 for i = 1:N
     for j = 1:N
-        v(i, j) = -sin(2*pi*pos_x_v(i, j)) * cos(2*pi*pos_y_v(i, j)); % modify according to velocity field
+        v(i, j) = v_field(pos_x_v(i,j),pos_y_v(i,j)); % modify according to velocity field
     end
 end
 
