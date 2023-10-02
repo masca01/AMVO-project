@@ -1,5 +1,5 @@
 close all
-clear all
+clear
 clc
 
 %% visualització del camp de velicitats
@@ -15,7 +15,7 @@ title('velocity field')
 
 %% test part A
 i = 1;
-for N = 32:8:256
+for N = 100:100:1000
 
      [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L);
      halo_print_u = halo_update(u);
@@ -50,8 +50,8 @@ figure(2)
 hold on
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-plot(h, max_error_convective_u)
-plot(h, max_error_diff_u)
+plot(h, max_error_convective_u, '-o')
+plot(h, max_error_diff_u, '-o')
 plot(h, h.^2)
 xlabel('h')
 ylabel('error')
@@ -64,12 +64,12 @@ figure(3)
 hold on
 set(gca, 'XScale', 'log')
 set(gca, 'YScale', 'log')
-plot(h, max_error_convective_v)
+plot(h, max_error_convective_v, '-o')
+plot(h, max_error_diff_v, '-o')
 plot(h, h.^2)
-plot(h, max_error_diff_v)
 xlabel('h')
 ylabel('error')
 title('Velocity V')
-legend('error conv.','h^2', 'error diff.', 'location', 'best')
+legend('error conv.', 'error diff.','h^2', 'location', 'best')
 grid on
 
