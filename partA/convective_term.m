@@ -6,7 +6,7 @@ function [convective_u, convective_v] = convective_term(u, v, N, L)
 convective_u = zeros(N, N);
 convective_v = zeros(N, N);
 
-% face longitude 
+% face longitude
 delta = L/N;
 
 for i = 2:N+1
@@ -33,5 +33,3 @@ for i = 2:N+1
         convective_v(i-1, j-1) = (u_e_v*v_e*delta - u_w_v*v_w*delta + v_n*v_n*delta - v_s*v_s*delta) / delta^2;
     end
 end
-
-

@@ -1,4 +1,4 @@
-function [u_print, v_print, time] = numericPartC(N, L, u_syms, v_syms, x, y, s, numSteps)
+function [u_print, v_print, time] = numericPartC(N, L, u_syms, v_syms, x, y, s, numSteps, visc)
 
 u_print = zeros(1, numSteps);
 v_print = zeros(1, numSteps);
@@ -7,7 +7,7 @@ time = zeros(1,numSteps);
 
 [~, ~, ~, ~, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
 
-time(1) = eval_time_step (N, L, u, v);
+time(1) = eval_time_step (N, L, u, v, visc);
 
 [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
 
@@ -36,7 +36,7 @@ vn = v;
 
 for i = 2:numSteps
 
-    time(i) = eval_time_step (N, L, u_n1, v_n1);
+    time(i) = eval_time_step (N, L, u_n1, v_n1, visc);
 
     [conv_u, conv_v, diff_u, diff_v] = partA(N, L, un, vn);
 

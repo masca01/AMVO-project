@@ -17,6 +17,6 @@ for i = 1:N
         convective_analytic_v_aux(i, j) = f_v(xv(1, i), yv(1, j));
     end
 end
-  
+
 convective_analytic_u = print_field(convective_analytic_u_aux);
 convective_analytic_v = print_field(convective_analytic_v_aux);
