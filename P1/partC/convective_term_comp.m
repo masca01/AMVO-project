@@ -1,4 +1,4 @@
-function [convective_u, convective_v] = convective_term(u, v, N, L)
+function [convective_u, convective_v] = convective_term_comp(u, v, N, L)
 % numerical definition of the convective term in both directions, x and y
 
 % vector definition
