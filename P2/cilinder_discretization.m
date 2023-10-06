@@ -4,7 +4,7 @@ clc
 
 %% DATA INPUT
 R = 0.5;
-N = 100;
+N = 10;
 M = N +1;
 angle = linspace(0, 2*pi, M);
 
@@ -29,13 +29,16 @@ for i = 1:N
     % compute the x & z position of each control volume
     pos_cv(i, 1) = (posicions(i, 1) + posicions(i+1, 1)) / 2;
     pos_cv(i, 2) = (posicions(i, 2) + posicions(i+1, 2)) / 2;
+
     % compute the longitud of each control volume
     diferencia_x = abs(posicions(i, 1) - posicions(i+1, 1));
     diferencia_z = abs(posicions(i, 2) - posicions(i+1, 2));
     long(i, 1) = sqrt(diferencia_x^2 + diferencia_z^2);
+
     % compute the cos & sen that the cv maes with x axis
     sin_array(i, 1) = (-posicions(i+1, 2) + posicions(i, 2)) / long(i, 1);
     cos_array(i, 1) = (+posicions(i+1, 1) - posicions(i, 1)) / long(i, 1);
+
     % definition of normal & tangent vectors for each control volume
     N_c(i, :) = [sin_array(i, 1), cos_array(i, 1)];
     T_c(i, :) = [cos_array(i, 1), -sin_array(i, 1)];

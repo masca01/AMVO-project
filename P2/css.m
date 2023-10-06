@@ -3,6 +3,9 @@ function v = css(panel, long, N_c, T_c, point, sig)
 %point coordinates is referenciated to the first point of the panel
 %sig is the intenisty of the source/sink
 
+%aqui falta transformar el punt que ens dona sobre la referencia del
+%primer punt del panell
+
 v = zeros(1,2);
 
 r1 = point(1,1)^2 + point(1,2)^2;
