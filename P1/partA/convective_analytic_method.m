@@ -13,10 +13,9 @@ f_u = matlabFunction(convective_u, 'Vars', [x y]);
 f_v = matlabFunction(convective_v, 'Vars', [x y]);
 for i = 1:N
     for j = 1:N
-        convective_analytic_u_aux(i, j) = f_u(xu(1, i), yu(1, j));
-        convective_analytic_v_aux(i, j) = f_v(xv(1, i), yv(1, j));
+        convective_analytic_u(i, j) = f_u(xu(i), yu(j));
+        convective_analytic_v(i, j) = f_v(xv(i), yv(j));
     end
 end
 
-convective_analytic_u = print_field(convective_analytic_u_aux);
-convective_analytic_v = print_field(convective_analytic_v_aux);
+

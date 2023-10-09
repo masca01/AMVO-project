@@ -8,8 +8,9 @@ M = 32;
 
 syms x y
 
-u_syms = cos(2*pi*x) * sin(2*pi*y);
-v_syms =  - sin(2*pi*x) * cos(2*pi*y);
+u_syms = cos(2*pi*x).* sin(2*pi*y);
+v_syms =  - sin(2*pi*x).* cos(2*pi*y);
+
 
 [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(M, L, u_syms, v_syms, x, y);
 X = linspace(0, L, M);
@@ -21,7 +22,7 @@ title('velocity field')
 
 %% test part A
 i = 1;
-for N = 100:100:1000
+for N = [8,16,32,64,128,256]
 
      [pos_x_u, pos_y_u, pos_x_v, pos_y_v, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
      halo_print_u = halo_update(u);

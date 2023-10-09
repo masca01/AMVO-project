@@ -16,20 +16,13 @@ v = zeros(N, N);
 % pos_x_u
 for i = 1:N
     for j = 1:N
-        pos_x_u(i, j) = (L/N) * (j);
+        pos_x_u(i, j) = (L/N) * (i);
+        pos_y_u(i, j) = (L/N)*(j-1/2);
     end
 end
-%pos_y_u
-pos_y_u(N, :) = (L/(N)) / 2;
-for i = N-1:-1:1
-    for j = 1:N
-        pos_y_u(i, j) = ((L/(N)) / 2) + (L/N) * (N-i);
-    end
-end
-
 u_field = matlabFunction(u_an, 'Vars', [x y]);
-for i = 1:N
-    for j = 1:N
+for j = 1:N
+    for i=1:N
         u(i, j) = u_field(pos_x_u(i,j),pos_y_u(i,j)); %  modify according to velocity field
     end
 end
@@ -38,14 +31,14 @@ end
 pos_x_v(N, :) = (L/(N)) / 2;
 for i = 1:N
     for j = 1:N
-        pos_x_v(i, j) = ((L/(N)) / 2) + (L/N) * (j-1);
+        pos_x_v(i, j) =  (L/N)*(i-1/2);
     end
 end
 
 % pos_y_v
 for i = N:-1:1
     for j = 1:N
-        pos_y_v(i, j) = (L/N) * (N+1-i);
+        pos_y_v(i, j) = (L/N) * (j);
     end
 end
 
