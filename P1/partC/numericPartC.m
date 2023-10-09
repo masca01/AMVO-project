@@ -1,4 +1,4 @@
-function [u_print, v_print, time] = numericPartC(N, L, u_syms, v_syms, x, y, s, numSteps, visc)
+function [u_print, v_print, time] = numericPartC(N, L, u_syms, v_syms, x, y, numSteps, visc)
 
 u_print = zeros(1, numSteps);
 v_print = zeros(1, numSteps);
@@ -11,9 +11,9 @@ time(1) = eval_time_step (N, L, u, v, visc);
 
 [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
 
-Ru = ((-conv_u / s) + (diff_u / s));
+Ru = ((-conv_u) + visc * (diff_u));
 
-Rv = ((-conv_v / s) + (diff_v / s));
+Rv = ((-conv_v) + visc * (diff_v));
 
 up = u + time(1) * (Ru);
 vp = v + time(1) * (Rv);
@@ -40,15 +40,15 @@ for i = 2:numSteps
 
     [conv_u, conv_v, diff_u, diff_v] = partA(N, L, un, vn);
 
-    Rold_u = ((-conv_u / s) + (diff_u / s)); %old R
+    Rold_u = ((-conv_u ) + visc * (diff_u )); %old R
 
-    Rold_v = ((-conv_v / s) + (diff_v / s)); %old R
+    Rold_v = ((-conv_v ) + visc * (diff_v )); %old R
 
     [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u_n1, v_n1);
 
-    Rnew_u = ((-conv_u / s) + (diff_u / s)); %new R
+    Rnew_u = ((-conv_u) + visc * (diff_u)); %new R
 
-    Rnew_v = ((-conv_v / s) + (diff_v / s)); %new R
+    Rnew_v = ((-conv_v) + visc * (diff_v)); %new R
 
     up = u_n1 + time(i) * (1.5 * Rnew_u - 0.5 * Rold_u);
     vp = v_n1 + time(i) * (1.5 * Rnew_v - 0.5 * Rold_v);
