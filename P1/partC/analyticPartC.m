@@ -10,7 +10,7 @@ time = zeros(1,numSteps);
 
 for i = 1:numSteps
 
-    t = t + 0.006;
+    t = t + 0.04;
     F = exp(-8 * pi^2 * visc * t);
     un = F * u;
     vn = F * v;

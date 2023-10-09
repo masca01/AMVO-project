@@ -8,7 +8,7 @@ N=10;
 L=1;
 numSteps = 50;
 s = ( L / N )^2;
-visc = (N/L) / 100; %viscosity (Reynolds number should be around 100)
+visc = (L / N) / 100; %viscosity (Reynolds number should be around 100)
 
 syms x y
 
@@ -26,7 +26,7 @@ xlabel('Time, t / s')
 ylabel('Velocity, v / (ms^-1)')
 title('Velocity over time')
 legend('u num','v num', 'u an','v an', 'location','best')
-axis([0 0.3 -0.4 0.4]);
+axis([0 2 -0.4 0.4]);
 grid on
 grid minor
 
