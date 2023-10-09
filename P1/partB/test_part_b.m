@@ -5,30 +5,13 @@ close all
 clc
 
 L = 1;
-N = 3;
+N = 10;
 
 % es posen valors de u i v (tot 0 i excepte algun punt)
 % aixo ja ho canviarem que queda molt cutre
 
 u = magic(N);
 v = magic(N);
-% 
-% u  =[0 0 0 0 0 0 0;
-%     0 0 1 0 0 0 0;
-%     0 -1 2 0 1 -1 0;
-%     0 0 -2 1 0 9 -9;
-%     0 -1 2 0 1 -1 0;
-%     0 0 -2 1 0 9 -9
-%     0 1 0 0 0 0 0];
-% 
-% v  =[0 0 0 0 0 0 0;
-%     0 0 0 0 0 0 0;
-%     0 0 1 0 0 0 0;
-%     0 0 0 0 0 0 0;
-%     0 0 0 0 0 0 0;
-%     0 0 0 0 0 0 0;
-%     0 0 0 0 0 0 -1];
-
 % halo de les velocitats per a poder tractar tots els nodes be
 
 u_halo = halo_update(u);

@@ -6,8 +6,8 @@ warning('off');
 
 N=10;
 L=1;
-numSteps = 50;
-s = ( L / N )^2;
+numSteps = 100;
+s = ( L / N );
 visc = (N/L) / 100; %viscosity (Reynolds number should be around 100)
 
 syms x y

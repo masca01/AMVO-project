@@ -11,7 +11,7 @@ time(1) = eval_time_step (N, L, u, v, visc);
 
 [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
 
-Ru = ((-conv_u / s) + (diff_u / s));
+Ru = ((-conv_u / s) + (diff_u / s))
 
 Rv = ((-conv_v / s) + (diff_v / s));
 
