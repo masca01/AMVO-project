@@ -1,7 +1,7 @@
 function [delta_t] = eval_time_step(N, L, u, v, visc)
 
 %% funcio per evaluar el time step adequat per l'estabilitat, pag 57
-f = 0.3;
+f = 0.2;
 delta = L / N;
 %agafem la u o v maxima
 max_u = max(max(abs(u)));
