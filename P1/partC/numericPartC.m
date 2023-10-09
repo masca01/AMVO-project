@@ -7,7 +7,10 @@ time = zeros(1,numSteps);
 
 [~, ~, ~, ~, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
 
-time(1) = eval_time_step (N, L, u, v, visc);
+u_print(1) = u(3,3);
+v_print(1) = v(3,3);
+
+time(2) = eval_time_step (N, L, u, v, visc);
 
 [conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
 
@@ -15,8 +18,8 @@ Ru = ((-conv_u) + visc * (diff_u));
 
 Rv = ((-conv_v) + visc * (diff_v));
 
-up = u + time(1) * (Ru);
-vp = v + time(1) * (Rv);
+up = u + time(2) * (Ru);
+vp = v + time(2) * (Rv);
 
 % result_div_up = diverg(halo_update(up), halo_update(vp), N, L); %shouldnt be 0
 
@@ -28,15 +31,15 @@ if abs(result_div) > 1*10^(-5)
 
 end
 
-u_print(1) = u_n1(3,3);
-v_print(1) = v_n1(3,3);
+u_print(2) = u_n1(3,3);
+v_print(2) = v_n1(3,3);
 
 un = u;
 vn = v;
 
 for i = 2:numSteps
 
-    time(i) = eval_time_step (N, L, u_n1, v_n1, visc);
+    time(i+1) = eval_time_step (N, L, u_n1, v_n1, visc);
 
     [conv_u, conv_v, diff_u, diff_v] = partA(N, L, un, vn);
 
@@ -69,6 +72,6 @@ for i = 2:numSteps
 
     end
 
-    u_print(i) = u_n1(3,3);
-    v_print(i) = v_n1(3,3);
+    u_print(i+1) = u_n1(3,3);
+    v_print(i+1) = v_n1(3,3);
 end
