@@ -8,8 +8,6 @@ L = 1;
 N = 10;
 
 % es posen valors de u i v (tot 0 i excepte algun punt)
-% aixo ja ho canviarem que queda molt cutre
-
 u = magic(N);
 v = magic(N);
 % halo de les velocitats per a poder tractar tots els nodes be
@@ -24,7 +22,7 @@ b = field2vector(d);
 % es defineix la matriu A
 A = A_matrix(N);
 % es calcula el terme p a partir de la matriu A i el vector b
-p_poisson_vector = inversa(A, b);
+p_poisson_vector = inversa(A, transpose(b));
 % es transforma el terme p, el qual es un vector, en una matriu de NxN
 p_poisson_matrix = vector2Matrix(p_poisson_vector, N);
 % calcul del gradient de la matriu de la p (pas 5) 
