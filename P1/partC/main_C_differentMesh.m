@@ -3,6 +3,12 @@ clear
 close all
 clc
 
+%% Vector Definition
+max_error_u = zeros(5, 1);
+max_error_v = zeros(5, 1);
+max_error = zeros(5, 1);
+h = zeros(5, 1);
+
 L = 1;
 numSteps = 100;
 
