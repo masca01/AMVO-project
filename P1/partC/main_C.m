@@ -1,19 +1,19 @@
 %% MAIN PART C
-clear all
+clear
 close all
 clc
 
 N = 10;
 L = 1;
 numSteps = 100;
-visc = 0.001;
+visc = (L/N)/100;
 
 syms x y
 u_syms = cos(2*pi*x) * sin(2*pi*y);
 v_syms = - sin(2*pi*x) * cos(2*pi*y);
 
 [u_print, v_print, time] = numeric_C(N, L, u_syms, v_syms, x, y, numSteps, visc);
-[u_print_an, v_print_an, timePrint_an] = analyticPartC(N, L, u_syms, v_syms, x, y, numSteps, visc);
+[u_print_an, v_print_an] = analyticPartC(N, L, u_syms, v_syms, x, y, numSteps, visc, time);
 
 
 set(groot,'defaultAxesTickLabelInterpreter','latex');
@@ -29,6 +29,7 @@ plot(time, v_print_an)
 legend('$u_{num}$', '$v_{num}$', '$u_{an}$', '$v_{an}$', 'Location','best', 'FontSize', 12)
 xlabel('Time [s]','FontSize', 16)
 ylabel('Velocity [m/s]', 'FontSize', 16)
+title('Comparison of Analytic and Numeric velocities');
 grid on 
 grid minor
 box on
