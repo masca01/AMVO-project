@@ -1,28 +1,32 @@
 function [u_print, v_print, time] = numeric_C(N, L, u_syms, v_syms, x, y, numSteps, visc)
 
-% vector definition
+%% Vector Definition
 u_print = zeros(numSteps, 1);
 v_print = zeros(numSteps, 1);
 time = zeros(numSteps, 1);
 time_step = zeros(numSteps, 1);
-% velocity field computation
-[~, ~, ~, ~, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y);
-% time step definition
-time_step(1, 1) = eval_time_step(N, L, u, v, visc);
-% convective and diffusive term for first time iteration
-[conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v);
-% R factor for 1st iteration
-Ru = -conv_u + visc*diff_u;
+
+%% Computation
+[~, ~, ~, ~, u, v] = set_velocity_field(N, L, u_syms, v_syms, x, y); % velocity field computation
+
+time_step(1, 1) = eval_time_step(N, L, u, v, visc); % time step definition
+
+
+[conv_u, conv_v, diff_u, diff_v] = partA(N, L, u, v); % convective and diffusive term for first time iteration
+
+
+Ru = -conv_u + visc*diff_u; % R factor for 1st iteration
 Rv = -conv_v + visc*diff_v;
-% up for 1st iteration
-up = u + time_step(1, 1) * Ru;
+
+
+up = u + time_step(1, 1) * Ru; % up for 1st iteration
 vp = v + time_step(1, 1) * Rv;
 
 % computation of u n+1
 [result_div, u_n1, v_n1] = partB(N,L,up,vp);
 
 
-
+%% CHECK
 if max(max(abs(result_div))) > 1*10^(-10) %checks if the code works fine
 
     return %it will stop the code
@@ -31,14 +35,14 @@ end
 
 u_print(1, 1) = u_n1(3, 3);
 v_print(1, 1) = v_n1(3, 3);
-% define u_n values to u_n-1 and u_n+1 to u_n
-u_n = u_n1;
+
+u_n = u_n1; % define u_n values to u_n-1 and u_n+1 to u_n
 v_n = v_n1;
 Ru_min1 = Ru;
 Rv_min1 = Rv;
 
-% same process but inside the loop
-for i = 2:numSteps
+%% Loop
+for i = 2:numSteps %same process but inside the 
     time_step(i, 1) = eval_time_step(N, L, u_n, v_n, visc);
     time(i, 1) = time(i-1, 1) + time_step(i, 1);
 
