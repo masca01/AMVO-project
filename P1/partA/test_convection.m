@@ -62,7 +62,7 @@ plot(h, max_error_diff_u, '-o')
 plot(h, h.^2)
 xlabel('h')
 ylabel('error')
-title('Velocity U')
+title('Comparison of Analytic and Numeric velocities. U component')
 legend('error conv.','error diff.','h^2', 'location','best')
 grid on
 grid minor
@@ -76,7 +76,7 @@ plot(h, max_error_diff_v, '-o')
 plot(h, h.^2)
 xlabel('h')
 ylabel('error')
-title('Velocity V')
+title('Comparison of Analytic and Numeric velocities. V component')
 legend('error conv.', 'error diff.','h^2', 'location', 'best')
 grid on
 
