@@ -20,6 +20,15 @@ vp = v + time_step(1, 1) * Rv;
 
 % computation of u n+1
 [result_div, u_n1, v_n1] = partB(N,L,up,vp);
+
+
+
+if max(max(abs(result_div))) > 1*10^(-10) %checks if the code works fine
+
+    return %it will stop the code
+
+end
+
 u_print(1, 1) = u_n1(3, 3);
 v_print(1, 1) = v_n1(3, 3);
 % define u_n values to u_n-1 and u_n+1 to u_n
@@ -42,6 +51,12 @@ for i = 2:numSteps
     vp = v_n + time_step(i, 1) * (1.5 * Rv - 0.5 * Rv_min1);
 
     [result_div, u_n1, v_n1] = partB(N,L,up,vp);
+
+    if max(max(abs(result_div))) > 1*10^(-5) %checks if the code works fine
+
+        return %it will stop the code
+
+    end
 
     u_print(i, 1) = u_n1(3, 3);
     v_print(i, 1) = v_n1(3, 3);
