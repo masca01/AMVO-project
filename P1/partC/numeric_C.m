@@ -23,8 +23,6 @@ vp = v + time_step(1, 1) * Rv;
 u_print(1, 1) = u_n1(3, 3);
 v_print(1, 1) = v_n1(3, 3);
 % define u_n values to u_n-1 and u_n+1 to u_n
-u_n_min1 = u;
-v_n_min1 = v;
 u_n = u_n1;
 v_n = v_n1;
 Ru_min1 = Ru;
