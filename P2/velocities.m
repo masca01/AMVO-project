@@ -1,10 +1,10 @@
-function [up, wp] = velocities(point, long)
+function [Vp] = velocities(pointPanCoord, long)
 
-r1 = point(1,1)^2 + point(1,2)^2;
-r2 = (point(1,1)-long)^2 + point(1,2)^2;
+r1 = pointPanCoord(1,1)^2 + pointPanCoord(1,2)^2;
+r2 = (pointPanCoord(1,1)-long)^2 + pointPanCoord(1,2)^2;
 
-o1 = acos2(point(1,1),sqrt(r1));
-o2 = acos2((point(1,1)-long),sqrt(r2));
+o1 = atan2(pointPanCoord(1,1),sqrt(r1));
+o2 = atan2((pointPanCoord(1,1)-long),sqrt(r2));
 
-up = (1 / 4*pi) * ln(r1 / r2);
-wp = (1 / 2*pi) * (o2 - o1);
+Vp(1, 1) = (1 / 4*pi) * log(r1 / r2);
+Vp(1, 2) = (1 / 2*pi) * (o2 - o1);
