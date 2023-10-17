@@ -8,7 +8,6 @@ N = 10;
 M = N +1;
 Qinf = 2;
 angle = linspace(0, 2*pi, M);
-pointGlobalCoord = [0.5, 0.5];
 
 %% VECTOR DEFINITION
 airfPos = zeros(M, 2);
@@ -21,6 +20,8 @@ N_c = zeros(N, 2);
 b = zeros(N, 2);
 pointPanCoord = zeros(N, 2);
 Vp  = zeros(N, 2);
+VpGlobalCoord  = zeros(N, 2);
+a = zeros(N);
 
 %% CALCULATIONS
 
@@ -50,10 +51,27 @@ for i = 1:N
 
     %double loop for each control point
     b(i, :) = Qinf * N_c(i, :);
-    pointPanCoord(i, :) = globalToPan(airfPos(i,:), pointGlobalCoord, sinArray(i), cosArray(i));
-    Vp(i, :) = velocities(pointPanCoord(i, :), long(i));
+
+    for j = 1:N
+
+        pointPanCoord(i, :, j) = globalToPan(airfPos(j,:), posContrPoints(i, :), sinArray(j), cosArray(j));
+        Vp(i, :, j) = velocities(pointPanCoord(i, :, j), long(j));
+
+        %transformation of the velocities into global coordinates
+        VpGlobalCoord(i, 1, j) = Vp(i, 1, j) * cosArray(j, 1) + Vp(i, 2, j) * sinArray(j, 1);
+        VpGlobalCoord(i, 2, j) = - Vp(i, 1, j) * sinArray(j, 1) + Vp(i, 2, j) * cosArray(j, 1);
+
+        a(i,j) = VpGlobalCoord(i, 1, j) * sinArray(i) + VpGlobalCoord(i, 2, j) * cosArray(i);
+
+        if i == j
+            a(i,j) = 0.5;
+        end
+
+    end
 
 end
+
+sig = a\b;
 
 figure(1)
 hold on
@@ -66,5 +84,5 @@ ylabel('Z')
 title('Cylinder discretization')
 legend('Cylinder', 'Control points', 'Normal vectors', 'Tangnet vectors', 'Location','best')
 axis equal
-grid on 
+grid on
 grid minor
