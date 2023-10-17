@@ -4,9 +4,9 @@ clc
 
 %% DATA INPUT
 R = 0.5;
-N = 10;
+N = 16;
 M = N +1;
-Qinf = 2;
+Qinf = 10;
 angle = linspace(0, 2*pi, M);
 
 %% VECTOR DEFINITION
@@ -17,11 +17,13 @@ sinArray = zeros(N, 1);
 cosArray = zeros(N, 1);
 T_c = zeros(N, 2);
 N_c = zeros(N, 2);
-b = zeros(N, 2);
+b = zeros(N, 1);
 pointPanCoord = zeros(N, 2);
 Vp  = zeros(N, 2);
 VpGlobalCoord  = zeros(N, 2);
 a = zeros(N);
+V = zeros(N,1);
+Cp = zeros(N,1);
 
 %% CALCULATIONS
 
@@ -50,7 +52,10 @@ for i = 1:N
     T_c(i, :) = [cosArray(i, 1), -sinArray(i, 1)];
 
     %double loop for each control point
-    b(i, :) = Qinf * N_c(i, :);
+    b(i) = Qinf * N_c(i, 1) + Qinf * N_c(i, 2);
+end
+
+for i = 1:N
 
     for j = 1:N
 
@@ -71,7 +76,22 @@ for i = 1:N
 
 end
 
+a(N/4, :) = 0;
+a(N/4, 1) = 1;
+a(N/4, N) = 1;
+
+
 sig = a\b;
+
+for i = 1:N
+    for j = 1:N
+
+        V(i) = Qinf + (sig(j) *  VpGlobalCoord(i, 1, j) + sig(j) * VpGlobalCoord(i, 2, j));
+        Cp(i) = 1 - ( abs(V(i)) / Qinf )^2;
+
+    end
+end
+
 
 figure(1)
 hold on
@@ -84,5 +104,14 @@ ylabel('Z')
 title('Cylinder discretization')
 legend('Cylinder', 'Control points', 'Normal vectors', 'Tangnet vectors', 'Location','best')
 axis equal
+grid on
+grid minor
+
+
+figure(2)
+hold on
+plot(fliplr(transpose(airfPos(1:8, 1))), Cp(1:N/2))
+xlabel('x/c')
+ylabel('Cp')
 grid on
 grid minor
